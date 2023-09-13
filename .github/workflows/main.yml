@@ -27,17 +27,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         
-      - name: Checkout TopCoffea
-        uses: actions/checkout@v4
-        with:
-          repository: TopEFT/topcoffea
-
       - uses: mamba-org/setup-micromamba@v1
         with:
           environment-file: environment.yml
           environment-name: coffea-env
           init-shell: >-
                 bash
+
+      - name: Install TopCoffea
+        run: git clone git@github.com:TopEFT/topcoffea.git
 
       - name: Install pip packages
         run: |
