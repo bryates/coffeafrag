@@ -12,14 +12,14 @@ from coffea.analysis_tools import PackedSelection
 from coffea.lumi_tools import LumiMask
 
 from topcoffea.modules.paths import topcoffea_path
+from coffeafrag.modules.paths import coffeafrag_path
 from topcoffea.modules.get_param_from_jsons import GetParam
 import topcoffea.modules.object_selection as tc_os
 get_tc_param = GetParam(topcoffea_path("params/params.json"))
-get_b_param = GetParam(topeft_path("params/params.json"))
+get_b_param = GetParam(coffeafrag_path("params/params.json"))
 #from coffeafrag.modules.objects import *
 from coffeafrag.modules.corrections import GetBTagSF, ApplyJetCorrections, GetBtagEff, AttachMuonSF, AttachElectronSF, AttachPerLeptonFR, GetPUSF, ApplyRochesterCorrections, ApplyJetSystematics, AttachPSWeights, AttachScaleWeights, GetTriggerSF
 #from coffeafrag.modules.object_selection
-from coffeafrag.modules.paths import coffeafrag_path
 
 
 # Takes strings as inputs, constructs a string for the full channel name
@@ -488,7 +488,7 @@ class AnalysisProcessor(processor.ProcessorABC):
             ######### Masks we need for the selection ##########
 
             # Pass trigger mask
-            pass_trg = trgPassNoOverlap(events,isData,dataset,str(year))
+            #pass_trg = tc_es.trg_pass_no_overlap(events,isData,dataset,str(year),te_es.dataset_dict_top22006,te_es.exclude_dict_top22006)
 
             # b jet masks
             bmask_atleast1tight = (nbtagst>=1) # Used for tttt enriched
