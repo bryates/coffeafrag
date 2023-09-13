@@ -17,7 +17,7 @@ get_tc_param = GetParam(topcoffea_path("params/params.json"))
 #from coffeafrag.modules.objects import *
 from coffeafrag.modules.corrections import GetBTagSF, ApplyJetCorrections, GetBtagEff, AttachMuonSF, AttachElectronSF, AttachPerLeptonFR, GetPUSF, ApplyRochesterCorrections, ApplyJetSystematics, AttachPSWeights, AttachScaleWeights, GetTriggerSF
 #from coffeafrag.modules.object_selection
-from topcoffea.modules.paths import topcoffea_path
+from coffeafrag.modules.paths import coffeafrag_path
 
 
 # Takes strings as inputs, constructs a string for the full channel name
@@ -171,7 +171,7 @@ class AnalysisProcessor(processor.ProcessorABC):
         year               = self._samples[dataset]['year']#'20' + dataset.split('_')[-1]
         xsec               = self._samples[dataset]["xsec"]
         sow                = np.ones_like(events["event"])#self._samples[dataset]["nSumOfWeights"]
-        frag = uproot.open(topcoffea_path('analysis/bfrag/bfragweights.root'))
+        frag = uproot.open(coffeafrag_path('analysis/bfrag/bfragweights.root'))
 
         # Get up down weights from input dict
         '''
