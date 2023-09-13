@@ -7,7 +7,6 @@
 import uproot
 from coffea import hist, lookup_tools
 from topcoffea.modules.paths import topcoffea_path
-from topcoffea.modules.paths import topcoffea_path
 import numpy as np
 import awkward as ak
 import gzip
