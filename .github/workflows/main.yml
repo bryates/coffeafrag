@@ -35,7 +35,7 @@ jobs:
                 bash
 
       - name: Clone TopCoffea
-        run: git clone git@github.com:TopEFT/topcoffea.git
+        run: git clone https://github.com/TopEFT/topcoffea.git
 
       - name: Install pip packages
         run: |
