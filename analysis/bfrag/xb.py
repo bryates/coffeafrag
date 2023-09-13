@@ -171,7 +171,7 @@ class AnalysisProcessor(processor.ProcessorABC):
         year               = self._samples[dataset]['year']#'20' + dataset.split('_')[-1]
         xsec               = self._samples[dataset]["xsec"]
         sow                = np.ones_like(events["event"])#self._samples[dataset]["nSumOfWeights"]
-        frag = uproot.open(analysis/bfrag/bfragweights.root')
+        frag = uproot.open('analysis/bfrag/bfragweights.root')
 
         # Get up down weights from input dict
         '''
