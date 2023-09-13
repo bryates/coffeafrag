@@ -767,7 +767,7 @@ class AnalysisProcessor(processor.ProcessorABC):
                             "meson_id"      : meson_id[all_cuts_mask],
                             "dataset"       : dataset, #ak.Array([dataset] * ak.num(meson_id[all_cuts_mask], axis=0)),
                             "systematic"    : wgt_fluct, #ak.Array([wgt_fluct] * ak.num(meson_id[all_cuts_mask], axis=0)),
-                            "weight"        : weights_flat*xbUp[all_cuts_mask], 
+                            "weight"        : weights_flat*xbUp[all_cuts_mask],
                         }
                         axes_fill_info_dict_down = {
                             "xb"            : dense_axis_vals[0][all_cuts_mask],
