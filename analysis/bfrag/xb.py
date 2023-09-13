@@ -15,6 +15,7 @@ from topcoffea.modules.paths import topcoffea_path
 from topcoffea.modules.get_param_from_jsons import GetParam
 import topcoffea.modules.object_selection as tc_os
 get_tc_param = GetParam(topcoffea_path("params/params.json"))
+get_b_param = GetParam(topeft_path("params/params.json"))
 #from coffeafrag.modules.objects import *
 from coffeafrag.modules.corrections import GetBTagSF, ApplyJetCorrections, GetBtagEff, AttachMuonSF, AttachElectronSF, AttachPerLeptonFR, GetPUSF, ApplyRochesterCorrections, ApplyJetSystematics, AttachPSWeights, AttachScaleWeights, GetTriggerSF
 #from coffeafrag.modules.object_selection
@@ -177,7 +178,7 @@ class AnalysisProcessor(processor.ProcessorABC):
         # Get up down weights from input dict
         '''
         if (self._do_systematics and not isData):
-            if histAxisName in get_param("lo_xsec_samples"):
+            if histAxisName in get_tc_param("lo_xsec_samples"):
                 # We have a LO xsec for these samples, so for these systs we will have e.g. xsec_LO*(N_pass_up/N_gen_nom)
                 # Thus these systs will cover the cross section uncty and the acceptance and effeciency and shape
                 # So no NLO rate uncty for xsec should be applied in the text data card
@@ -350,7 +351,7 @@ class AnalysisProcessor(processor.ProcessorABC):
                 # SYSTEMATICS
                 cleanedJets=ApplyJetSystematics(year,cleanedJets,syst_var)
                 met=ApplyJetCorrections(year, corr_type='met').build(met_raw, cleanedJets, lazy_cache=events_cache)
-            cleanedJets["isGood"] = tc_os.is_tight_jet(getattr(cleanedJets, jetptname), cleanedJets.eta, cleanedJets.jetId, jetPtCut=30.) # temporary at 25 for synch, TODO: Do we want 30 or 25?
+            cleanedJets["isGood"] = tc_os.is_tight_jet(getattr(cleanedJets, jetptname), cleanedJets.eta, cleanedJets.jetId, pt_cut=30., eta_cut=2.4, id_cut=0)
             goodJets = jets#cleanedJets[cleanedJets.isGood]
 
             # Count jets
@@ -360,13 +361,13 @@ class AnalysisProcessor(processor.ProcessorABC):
 
             # Loose DeepJet WP
             if year == "2017":
-                btagwpl = get_param("btag_wp_loose_UL17")
+                btagwpl = get_b_param("btag_wp_loose_UL17")
             elif year == "2018":
-                btagwpl = get_param("btag_wp_loose_UL18")
+                btagwpl = get_b_param("btag_wp_loose_UL18")
             elif year=="2016":
-                btagwpl = get_param("btag_wp_loose_UL16")
+                btagwpl = get_b_param("btag_wp_loose_UL16")
             elif year=="2016APV":
-                btagwpl = get_param("btag_wp_loose_UL16APV")
+                btagwpl = get_b_param("btag_wp_loose_UL16APV")
             else:
                 raise ValueError(f"Error: Unknown year \"{year}\".")
             isBtagJetsLoose = (goodJets.btagDeepFlavB > btagwpl)
@@ -392,13 +393,13 @@ class AnalysisProcessor(processor.ProcessorABC):
 
             # Medium DeepJet WP
             if year == "2017":
-                btagwpm = get_param("btag_wp_medium_UL17")
+                btagwpm = get_b_param("btag_wp_medium_UL17")
             elif year == "2018":
-                btagwpm = get_param("btag_wp_medium_UL18")
+                btagwpm = get_b_param("btag_wp_medium_UL18")
             elif year=="2016":
-                btagwpm = get_param("btag_wp_medium_UL16")
+                btagwpm = get_b_param("btag_wp_medium_UL16")
             elif year=="2016APV":
-                btagwpm = get_param("btag_wp_medium_UL16APV")
+                btagwpm = get_b_param("btag_wp_medium_UL16APV")
             else:
                 raise ValueError(f"Error: Unknown year \"{year}\".")
             isBtagJetsMedium = (goodJets.btagDeepFlavB > btagwpm)
@@ -407,13 +408,13 @@ class AnalysisProcessor(processor.ProcessorABC):
 
             # Tight DeepJet WP
             if year == "2017":
-                btagwpt = get_param("btag_wp_tight_UL17")
+                btagwpt = get_b_param("btag_wp_tight_UL17")
             elif year == "2018":
-                btagwpt = get_param("btag_wp_tight_UL18")
+                btagwpt = get_b_param("btag_wp_tight_UL18")
             elif year=="2016":
-                btagwpt = get_param("btag_wp_tight_UL16")
+                btagwpt = get_b_param("btag_wp_tight_UL16")
             elif year=="2016APV":
-                btagwpt = get_param("btag_wp_tight_UL16APV")
+                btagwpt = get_b_param("btag_wp_tight_UL16APV")
             else:
                 raise ValueError(f"Error: Unknown year \"{year}\".")
             isBtagJetsTight = (jets.btagDeepFlavB > btagwpt)
