@@ -22,4 +22,4 @@ def test_runner():
     # Run bfrag
     subprocess.run(args)
 
-    assert (exists('analysis/bfrag/histos/output_check_yields.pkl.gz'))
+    assert (exists('histos/output_check_yields.pkl.gz'))
