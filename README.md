@@ -1,3 +1,4 @@
+[![CI](https://github.com/bryates/coffeafrag/actions/workflows/main.yml/badge.svg)](https://github.com/bryates/coffeafrag/actions/workflows/main.yml)
 # coffeafrag
 Coffea based b-fragmentation analyzer. This analyzer uses the [`TopCoffea`](https://github.com/TopEFT/topcoffea) framework.
 
