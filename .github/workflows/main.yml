@@ -47,6 +47,7 @@ jobs:
         run: |
           micromamba install -y -n coffea-env -c conda-forge pytest pytest-cov root_base
           mkdir histos
+        shell: bash -el {0}
 
       - name: Run test
         run: |
