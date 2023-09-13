@@ -39,6 +39,6 @@ jobs:
 
       - name: Install pip packages
         run: |
-          pip install ./topeft
+          pip install ./topcoffea
           pip install -e .
         shell: micromamba-shell {0}
