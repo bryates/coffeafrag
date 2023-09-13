@@ -31,7 +31,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           name: TopEFT/topcoffea
-          ref: refs/heads/release
 
       - uses: mamba-org/setup-micromamba@v1
         with:
