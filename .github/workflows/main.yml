@@ -34,7 +34,7 @@ jobs:
           init-shell: >-
                 bash
 
-      - name: Install TopCoffea
+      - name: Clone TopCoffea
         run: git clone git@github.com:TopEFT/topcoffea.git
 
       - name: Install pip packages
