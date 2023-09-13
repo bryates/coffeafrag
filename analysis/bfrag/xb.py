@@ -11,10 +11,12 @@ from coffea.util import load
 from coffea.analysis_tools import PackedSelection
 from coffea.lumi_tools import LumiMask
 
-from topcoffea.modules.GetValuesFromJsons import get_param, get_lumi
-from topcoffea.modules.objects import *
-from topcoffea.modules.corrections import GetBTagSF, ApplyJetCorrections, GetBtagEff, AttachMuonSF, AttachElectronSF, AttachPerLeptonFR, GetPUSF, ApplyRochesterCorrections, ApplyJetSystematics, AttachPSWeights, AttachScaleWeights, GetTriggerSF
-from topcoffea.modules.selection import *
+from topcoffea.modules.paths import topcoffea_path
+from topcoffea.modules.get_param_from_jsons import GetParam
+get_tc_param = GetParam(topcoffea_path("params/params.json"))
+#from coffeafrag.modules.objects import *
+from coffeafrag.modules.corrections import GetBTagSF, ApplyJetCorrections, GetBtagEff, AttachMuonSF, AttachElectronSF, AttachPerLeptonFR, GetPUSF, ApplyRochesterCorrections, ApplyJetSystematics, AttachPSWeights, AttachScaleWeights, GetTriggerSF
+#from coffeafrag.modules.object_selection
 from topcoffea.modules.paths import topcoffea_path
 
 

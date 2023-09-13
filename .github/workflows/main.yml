@@ -42,3 +42,14 @@ jobs:
           pip install ./topcoffea
           pip install -e .
         shell: micromamba-shell {0}
+
+      - name: Pytest setup
+        run: |
+          micromamba install -y -n coffea-env -c conda-forge pytest pytest-cov root_base
+          mkdir histos
+
+      - name: Run test
+        run: |
+          wget --no-verbose https://cernbox.cern.ch/s/IgHps6ErdmQC6yH/download -O ttbar.root
+          pytest
+        shell: micromamba-shell {0}

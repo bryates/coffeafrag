@@ -15,9 +15,8 @@ from coffea.nanoevents import NanoAODSchema
 from coffea.util import save
 
 from xb import AnalysisProcessor
+from coffeafrag.modules.paths import coffeafrag_path
 import topcoffea.modules.utils as utils
-from topcoffea.modules.dataDrivenEstimation import DataDrivenProducer
-from topcoffea.modules.get_renormfact_envelope import get_renormfact_envelope
 import topcoffea.modules.remote_environment as remote_environment
 
 LST_OF_KNOWN_EXECUTORS = ["futures","work_queue","dask"]
@@ -36,7 +35,7 @@ WGT_VAR_LST = [
 ]
 
 def get_xsec(year):
-    xsec_json = "xsecs.json"
+    xsec_json = coffeafrag_path("xsecs.json")
     with open(xsec_json) as f_xsec:
         xsec = json.load(f_xsec)
         xsec = xsec[year]
