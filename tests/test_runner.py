@@ -10,7 +10,7 @@ def test_runner():
         "-x",
         "futures",
         "--hist-list",
-        "xb_mass_d0"
+        "xb_mass_d0",
         "--skip-cr",
         "-t",
         "-c",
