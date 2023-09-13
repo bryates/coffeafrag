@@ -30,7 +30,7 @@ jobs:
       - name: Checkout TopCoffea
         uses: actions/checkout@v4
         with:
-          name: TopEFT/topcoffea
+          repository: TopEFT/topcoffea
 
       - uses: mamba-org/setup-micromamba@v1
         with:
