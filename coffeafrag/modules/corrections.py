@@ -266,7 +266,7 @@ def AttachPerLeptonFR(leps, flavor, year):
         flip_lookup = lookup_tools.dense_lookup.dense_lookup(flip_hist.values()[()],[flip_hist.axis("pt").edges(),flip_hist.axis("eta").edges()])
 
     # Get the fliprate scaling factor for the given year
-    chargeflip_sf = get_te_param("chargeflip_sf_dict")[flip_year_name]
+    chargeflip_sf = get_b_param("chargeflip_sf_dict")[flip_year_name]
 
     # For FR filepath naming conventions
     if '2016' in year:

@@ -9,14 +9,14 @@ import awkward as ak
 
 from topcoffea.modules.get_param_from_jsons import GetParam
 from topcoffea.modules.paths import topcoffea_path
-from topeft.modules.paths import topeft_path
+from coffeafrag.modules.paths import coffeafrag_path
 get_tc_param = GetParam(topcoffea_path("params/params.json"))
-get_te_param = GetParam(topeft_path("params/params.json"))
+get_b_param = GetParam(coffeafrag_path("params/params.json"))
 
 ### These functions have been synchronized with ttH ###
 
 def isPresTau(pt, eta, dxy, dz, idDeepTau2017v2p1VSjet, minpt=20.0):
-    return  (pt>minpt)&(abs(eta)<get_te_param("eta_t_cut"))&(abs(dxy)<get_te_param("dxy_tau_cut"))&(abs(dz)<get_te_param("dz_tau_cut"))&(idDeepTau2017v2p1VSjet>>1 & 1 ==1)
+    return  (pt>minpt)&(abs(eta)<get_b_param("eta_t_cut"))&(abs(dxy)<get_b_param("dxy_tau_cut"))&(abs(dz)<get_b_param("dz_tau_cut"))&(idDeepTau2017v2p1VSjet>>1 & 1 ==1)
 
 def isVLooseTau(idDeepTau2017v2p1VSjet):
     return (idDeepTau2017v2p1VSjet>>2 & 1)
@@ -69,28 +69,28 @@ def coneptMuon(pt, mvaTTHUL, jetRelIso, mediumId):
     return ak.where(((mvaTTHUL>get_tc_param("mva_TTH_m_cut"))&(mediumId>0)),pt,conePt)
 
 def isPresElec(pt, eta, dxy, dz, miniIso, sip3D, eleId):
-    pt_mask    = (pt       > get_te_param("pres_e_pt_cut"))
-    eta_mask   = (abs(eta) < get_te_param("eta_e_cut"))
-    dxy_mask   = (abs(dxy) < get_te_param("dxy_cut"))
-    dz_mask    = (abs(dz)  < get_te_param("dz_cut"))
-    iso_mask   = (miniIso  < get_te_param("iso_cut"))
-    sip3d_mask = (sip3D    < get_te_param("sip3d_cut"))
+    pt_mask    = (pt       > get_b_param("pres_e_pt_cut"))
+    eta_mask   = (abs(eta) < get_b_param("eta_e_cut"))
+    dxy_mask   = (abs(dxy) < get_b_param("dxy_cut"))
+    dz_mask    = (abs(dz)  < get_b_param("dz_cut"))
+    iso_mask   = (miniIso  < get_b_param("iso_cut"))
+    sip3d_mask = (sip3D    < get_b_param("sip3d_cut"))
     return (pt_mask & eta_mask & dxy_mask & dz_mask & iso_mask & sip3d_mask & eleId)
 
 def isPresMuon(dxy, dz, sip3D, eta, pt, miniRelIso):
-    pt_mask    = (pt         > get_te_param("pres_m_pt_cut"))
-    eta_mask   = (abs(eta)   < get_te_param("eta_m_cut"))
-    dxy_mask   = (abs(dxy)   < get_te_param("dxy_cut"))
-    dz_mask    = (abs(dz)    < get_te_param("dz_cut"))
-    iso_mask   = (miniRelIso < get_te_param("iso_cut"))
-    sip3d_mask = (sip3D      < get_te_param("sip3d_cut"))
+    pt_mask    = (pt         > get_b_param("pres_m_pt_cut"))
+    eta_mask   = (abs(eta)   < get_b_param("eta_m_cut"))
+    dxy_mask   = (abs(dxy)   < get_b_param("dxy_cut"))
+    dz_mask    = (abs(dz)    < get_b_param("dz_cut"))
+    iso_mask   = (miniRelIso < get_b_param("iso_cut"))
+    sip3d_mask = (sip3D      < get_b_param("sip3d_cut"))
     return (pt_mask & eta_mask & dxy_mask & dz_mask & iso_mask & sip3d_mask)
 
 def isLooseElec(miniPFRelIso_all,sip3d,lostHits):
-    return (miniPFRelIso_all<get_te_param("iso_cut")) & (sip3d<get_te_param("sip3d_cut")) & (lostHits<=1)
+    return (miniPFRelIso_all<get_b_param("iso_cut")) & (sip3d<get_b_param("sip3d_cut")) & (lostHits<=1)
 
 def isLooseMuon(miniPFRelIso_all,sip3d,looseId):
-    return (miniPFRelIso_all<get_te_param("iso_cut")) & (sip3d<get_te_param("sip3d_cut")) & (looseId)
+    return (miniPFRelIso_all<get_b_param("iso_cut")) & (sip3d<get_b_param("sip3d_cut")) & (looseId)
 
 def isFOElec(pt, conept, jetBTagDeepFlav, ttH_idEmu_cuts_E3, convVeto, lostHits, mvaTTHUL, jetRelIso, mvaFall17V2noIso_WP90, year):
 
@@ -107,9 +107,9 @@ def isFOElec(pt, conept, jetBTagDeepFlav, ttH_idEmu_cuts_E3, convVeto, lostHits,
         raise Exception(f"Error: Unknown year \"{year}\". Exiting...")
 
     btabReq    = (jetBTagDeepFlav<bTagCut)
-    ptReq      = (conept>get_te_param("fo_pt_cut"))
+    ptReq      = (conept>get_b_param("fo_pt_cut"))
     qualityReq = (ttH_idEmu_cuts_E3 & convVeto & (lostHits==0))
-    mvaReq     = ((mvaTTHUL>get_tc_param("mva_TTH_e_cut")) | ((mvaFall17V2noIso_WP90) & (jetBTagDeepFlav<smoothBFlav(0.9*pt*(1+jetRelIso),20,45,year)) & (jetRelIso < get_te_param("fo_e_jetRelIso_cut"))))
+    mvaReq     = ((mvaTTHUL>get_tc_param("mva_TTH_e_cut")) | ((mvaFall17V2noIso_WP90) & (jetBTagDeepFlav<smoothBFlav(0.9*pt*(1+jetRelIso),20,45,year)) & (jetRelIso < get_b_param("fo_e_jetRelIso_cut"))))
 
     return ptReq & btabReq & qualityReq & mvaReq
 
@@ -128,8 +128,8 @@ def isFOMuon(pt, conept, jetBTagDeepFlav, mvaTTHUL, jetRelIso, year):
         raise Exception(f"Error: Unknown year \"{year}\". Exiting...")
 
     btagReq = (jetBTagDeepFlav<bTagCut)
-    ptReq   = (conept>get_te_param("fo_pt_cut"))
-    mvaReq  = ((mvaTTHUL>get_tc_param("mva_TTH_m_cut")) | ((jetBTagDeepFlav<smoothBFlav(0.9*pt*(1+jetRelIso),20,45,year)) & (jetRelIso < get_te_param("fo_m_jetRelIso_cut"))))
+    ptReq   = (conept>get_b_param("fo_pt_cut"))
+    mvaReq  = ((mvaTTHUL>get_tc_param("mva_TTH_m_cut")) | ((jetBTagDeepFlav<smoothBFlav(0.9*pt*(1+jetRelIso),20,45,year)) & (jetRelIso < get_b_param("fo_m_jetRelIso_cut"))))
     return ptReq & btagReq & mvaReq
 
 def tightSelElec(clean_and_FO_selection_TTH, mvaTTHUL):

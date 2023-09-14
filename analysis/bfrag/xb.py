@@ -159,9 +159,11 @@ class AnalysisProcessor(processor.ProcessorABC):
     def accumulator(self):
         return self.output
 
+    '''
     @property
     def columns(self):
         return self._columns
+    '''
 
     # Main function: run on a given dataset
     def process(self, events):
@@ -716,13 +718,6 @@ class AnalysisProcessor(processor.ProcessorABC):
                                 continue
 
                         # This is a check ot make sure we guard against any unintentional variations being applied to data
-                        if self._do_systematics and isData:
-                            # Should not have any up/down variations for data in 4l (since we don't estimate the fake rate there)
-                            if nlep_cat == "4l":
-                                if weights_object.variations != set([]): raise Exception(f"Error: Unexpected wgt variations for data! Expected \"{[]}\" but have \"{weights_object.variations}\".")
-                            # In all other cases, the up/down variations should correspond to only the ones in the data list
-                            else:
-                                if weights_object.variations != set(data_syst_lst): raise Exception(f"Error: Unexpected wgt variations for data! Expected \"{set(data_syst_lst)}\" but have \"{weights_object.variations}\".")
 
                         cuts_lst = cat_dict[cat_chan]['chan_lst']
                         if 'xb_mass' in dense_axis_name and cat_chan not in dense_axis_name:
@@ -733,22 +728,12 @@ class AnalysisProcessor(processor.ProcessorABC):
                             continue
                         if isData:
                             cuts_lst.append("is_good_lumi")
-                        if self._split_by_lepton_flavor:
-                            flav_ch = lep_flav
-                            cuts_lst.append(lep_flav)
                         if dense_axis_name != "njets":
                             pass
                         #ch_name = construct_cat_name(lep_chan,njet_str=njet_ch,flav_str=flav_ch)
 
                         # Get the cuts mask for all selections
-                        if dense_axis_name == "njets":
-                            all_cuts_mask = (selections.all(*cuts_lst) & njets_any_mask)
-                        else:
-                            all_cuts_mask = selections.all(*cuts_lst)
-
-                        # Apply the optional cut on energy of the event
-                        if self._ecut_threshold is not None:
-                            all_cuts_mask = (all_cuts_mask & ecut_mask)
+                        all_cuts_mask = selections.all(*cuts_lst)
 
                         # Weights
                         weights_flat = np.nan_to_num(weight[all_cuts_mask], nan=0, posinf=0, neginf=0)

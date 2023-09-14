@@ -1,7 +1,13 @@
+'''
+Tests for repo
+'''
 import subprocess
 from os.path import exists
 
 def test_runner():
+    '''
+    Test run_xb.py
+    '''
     args = [
         "time",
         "python",
@@ -20,6 +26,6 @@ def test_runner():
     ]
 
     # Run bfrag
-    subprocess.run(args)
+    subprocess.run(args, check=False)
 
-    assert (exists('analysis/bfrag/histos/output_check_yields.pkl'))
+    assert exists('analysis/bfrag/histos/output_check_yields.pkl')
