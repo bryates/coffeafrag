@@ -36,7 +36,6 @@ WGT_VAR_LST = [
 
 def get_xsec(year):
     xsec_json = coffeafrag_path("cfg/xsecs.json")
-    xsec_json = "xsecs.json"
     with open(xsec_json) as f_xsec:
         xsec = json.load(f_xsec)
         xsec = xsec[year]
