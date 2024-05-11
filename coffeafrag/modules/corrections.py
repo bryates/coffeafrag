@@ -346,12 +346,18 @@ def AttachMuonSF(muons, year):
     new_sf  = SFevaluator['MuonSF_{year}'.format(year=year)](eta,pt)
     new_err = SFevaluator['MuonSF_{year}_er'.format(year=year)](eta,pt)
 
+    muons['sf_nom_1l_muon'] = new_sf * reco_sf * loose_sf * iso_sf
+    muons['sf_hi_1l_muon']  = (new_sf + new_err) * (reco_sf + reco_err) * (loose_sf + loose_err) * (iso_sf + iso_err)
+    muons['sf_lo_1l_muon']  = (new_sf - new_err) * (reco_sf - reco_err) * (loose_sf - loose_err) * (iso_sf - iso_err)
     muons['sf_nom_2l_muon'] = new_sf * reco_sf * loose_sf * iso_sf
     muons['sf_hi_2l_muon']  = (new_sf + new_err) * (reco_sf + reco_err) * (loose_sf + loose_err) * (iso_sf + iso_err)
     muons['sf_lo_2l_muon']  = (new_sf - new_err) * (reco_sf - reco_err) * (loose_sf - loose_err) * (iso_sf - iso_err)
     muons['sf_nom_3l_muon'] = new_sf * reco_sf * loose_sf
     muons['sf_hi_3l_muon']  = (new_sf + new_err) * (reco_sf + reco_err) * (loose_sf + loose_err) * (iso_sf + iso_err)
     muons['sf_lo_3l_muon']  = (new_sf - new_err) * (reco_sf - reco_err) * (loose_sf - loose_err) * (iso_sf - iso_err)
+    muons['sf_nom_1l_elec'] = ak.ones_like(new_sf)
+    muons['sf_hi_1l_elec']  = ak.ones_like(new_sf)
+    muons['sf_lo_1l_elec']  = ak.ones_like(new_sf)
     muons['sf_nom_2l_elec'] = ak.ones_like(new_sf)
     muons['sf_hi_2l_elec']  = ak.ones_like(new_sf)
     muons['sf_lo_2l_elec']  = ak.ones_like(new_sf)
@@ -390,12 +396,18 @@ def AttachElectronSF(electrons, year):
     iso_sf  = SFevaluator['ElecIsoSF_{year}'.format(year=year)](np.abs(eta),pt)
     iso_err = SFevaluator['ElecIsoSF_{year}_er'.format(year=year)](np.abs(eta),pt)
 
+    electrons['sf_nom_1l_elec'] = ak.ones_like(reco_sf)
+    electrons['sf_hi_1l_elec']  = ak.ones_like(reco_sf)
+    electrons['sf_lo_1l_elec']  = ak.ones_like(reco_sf)
     electrons['sf_nom_2l_elec'] = reco_sf * new_sf_2l * loose_sf * iso_sf
     electrons['sf_hi_2l_elec']  = (reco_sf + reco_err) * (new_sf_2l + new_err_2l) * (loose_sf + loose_err) * (iso_sf + iso_err)
     electrons['sf_lo_2l_elec']  = (reco_sf - reco_err) * (new_sf_2l - new_err_2l) * (loose_sf - loose_err) * (iso_sf - iso_err)
     electrons['sf_nom_3l_elec'] = reco_sf * new_sf_3l * loose_sf
     electrons['sf_hi_3l_elec']  = (reco_sf + reco_err) * (new_sf_3l + new_err_3l) * (loose_sf + loose_err) * (iso_sf + iso_err)
     electrons['sf_lo_3l_elec']  = (reco_sf - reco_err) * (new_sf_3l - new_err_3l) * (loose_sf - loose_err) * (iso_sf - iso_err)
+    electrons['sf_nom_1l_muon'] = ak.ones_like(reco_sf)
+    electrons['sf_hi_1l_muon']  = ak.ones_like(reco_sf)
+    electrons['sf_lo_1l_muon']  = ak.ones_like(reco_sf)
     electrons['sf_nom_2l_muon'] = ak.ones_like(reco_sf)
     electrons['sf_hi_2l_muon']  = ak.ones_like(reco_sf)
     electrons['sf_lo_2l_muon']  = ak.ones_like(reco_sf)

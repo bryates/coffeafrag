@@ -36,6 +36,7 @@ WGT_VAR_LST = [
 
 def get_xsec(year):
     xsec_json = coffeafrag_path("cfg/xsecs.json")
+    xsec_json = "xsecs.json"
     with open(xsec_json) as f_xsec:
         xsec = json.load(f_xsec)
         xsec = xsec[year]
@@ -195,7 +196,11 @@ if __name__ == '__main__':
         year = '20'+sname.split('_')[-1]
         samplesdict[sname]['year'] = year
         flist[sname] = [(redirector+f) for f in samplesdict[sname]['files']]
-        samplesdict[sname]['xsec'] = get_xsec('_'.join(sname.split('_')[:-1]))
+        if 'Data' not in sname or True:
+            xname = '_'.join(sname.split('_')[:-1])
+        else:
+            xname = sname
+        samplesdict[sname]['xsec'] = get_xsec(xname)
         samplesdict[sname]['isData'] = 'Data' in sname
         # Print file info
         print('>> '+sname)
@@ -221,7 +226,9 @@ if __name__ == '__main__':
             'stats_log': 'stats.log',
             'tasks_accum_log': 'tasks.log',
 
-            'environment_file': remote_environment.get_environment(),
+            'environment_file': remote_environment.get_environment(
+                extra_pip_local = {"coffeafrag": ["coffeafrag", "setup.py"]},
+            ),
             'extra_input_files': ["xb.py"],
 
             'retries': 5,

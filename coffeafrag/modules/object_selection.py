@@ -36,6 +36,10 @@ def isVTightTau(idDeepTau2017v2p1VSjet):
 def isVVTightTau(idDeepTau2017v2p1VSjet):
     return (idDeepTau2017v2p1VSjet>>7 & 1)
 
+def is_tight_jet(pt, eta, jet_id, pt_cut, eta_cut, id_cut):
+    mask = ((pt>pt_cut) & (abs(eta)<eta_cut) & (jet_id>id_cut))
+    return mask
+
 def ttH_idEmu_cuts_E3(hoe, eta, deltaEtaSC, eInvMinusPInv, sieie):
     return (hoe<(0.10-0.00*(abs(eta+deltaEtaSC)>1.479))) & (eInvMinusPInv>-0.04) & (sieie<(0.011+0.019*(abs(eta+deltaEtaSC)>1.479)))
 
@@ -91,6 +95,18 @@ def isLooseElec(miniPFRelIso_all,sip3d,lostHits):
 
 def isLooseMuon(miniPFRelIso_all,sip3d,looseId):
     return (miniPFRelIso_all<get_b_param("iso_cut")) & (sip3d<get_b_param("sip3d_cut")) & (looseId)
+
+def isVetoMuon(mu):
+    return mu.looseId & (mu.pt > get_b_param("loose_m_pt_cut")) & (abs(mu.eta) < get_b_param("eta_m_cut")) & (mu.jetRelIso < get_b_param("m_veto_iso_cut"))
+
+def isVetoElec(ele):
+    return (ele.cutBased == (1<<get_b_param("loose_e")))
+
+def isTightMuon(mu):
+    return mu.tightId & (mu.pt > get_b_param("tight_m_pt_cut")) & (abs(mu.eta) < get_b_param("eta_m_cut")) & (mu.jetRelIso < get_b_param("iso_cut"))
+
+def isTightElec(ele):
+    return (ele.cutBased >= (1<<get_b_param("tight_e")))  & (ele.pt > get_b_param("tight_e_pt_cut")) & (abs(ele.eta) < get_b_param("eta_e_cut")) & (ele.jetRelIso < get_b_param("iso_cut"))
 
 def isFOElec(pt, conept, jetBTagDeepFlav, ttH_idEmu_cuts_E3, convVeto, lostHits, mvaTTHUL, jetRelIso, mvaFall17V2noIso_WP90, year):
 

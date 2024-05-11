@@ -7,8 +7,13 @@
     "fo_pt_cut" : 10.0,
     "pres_e_pt_cut" : 7.0,
     "pres_m_pt_cut" : 5.0,
+    "loose_m_pt_cut" : 15.0,
+    "tight_e_pt_cut" : 30.0,
+    "tight_m_pt_cut" : 20.0,
 
     "iso_cut" : 0.4,
+    "tight_iso_cut" : 0.15,
+    "m_veto_iso_cut" : 0.24,
 
     "fo_m_jetRelIso_cut" : 0.5,
     "fo_e_jetRelIso_cut" : 1.0,
@@ -21,6 +26,8 @@
     "dz_tau_cut" : 0.2,
     "sip3d_cut" : 8,
 
+    "loose_e" : 1,
+    "tight_e" : 3,
     "mva_TTH_e_cut" : 0.90,
     "mva_TTH_m_cut" : 0.85,
 
