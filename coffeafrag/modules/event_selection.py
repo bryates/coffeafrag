@@ -1,6 +1,8 @@
 import awkward as ak
 
 
+# The datasets we are using, and the triggers in them
+dataset_dict_top22006 = {
     "2016" : {
         "SingleMuon" : [
             "IsoMu24",
