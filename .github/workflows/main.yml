@@ -53,6 +53,7 @@ jobs:
       - name: Run test
         run: |
           wget --no-verbose https://cernbox.cern.ch/s/IgHps6ErdmQC6yH/download -O ttbar.root
-          wget --no-verbose https://gitlab.cern.ch/CMS-TOPPAG/BFragmentationAnalyzer/-/raw/master/data/bfragweights.root -O ../../coffeafrag/data/bfrag/bfragweights.root
+          mkdir coffeafrag/data/bfrag
+          wget --no-verbose https://gitlab.cern.ch/CMS-TOPPAG/BFragmentationAnalyzer/-/raw/master/data/bfragweights.root -O coffeafrag/data/bfrag/bfragweights.root
           pytest tests/test_runner.py
         shell: micromamba-shell {0}
