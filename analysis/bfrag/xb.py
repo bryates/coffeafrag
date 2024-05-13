@@ -15,7 +15,6 @@ from topcoffea.modules.paths import topcoffea_path
 from coffeafrag.modules.paths import coffeafrag_path
 import topcoffea.modules.object_selection as tc_os
 import topcoffea.modules.event_selection as tc_es
-import topeft.modules.event_selection as te_es
 import coffeafrag.modules.event_selection as b_es
 import coffeafrag.modules.object_selection as b_os
 from topcoffea.modules.get_param_from_jsons import GetParam
@@ -595,7 +594,7 @@ class AnalysisProcessor(processor.ProcessorABC):
             ######### Masks we need for the selection ##########
 
             # Pass trigger mask
-            pass_trg = tc_es.trg_pass_no_overlap(events,isData,dataset,str(year),te_es.dataset_dict_top22006,te_es.exclude_dict_top22006)
+            pass_trg = tc_es.trg_pass_no_overlap(events,isData,dataset,str(year),b_es.dataset_dict_top22006,b_es.exclude_dict_top22006)
 
             # Charm meson candidates from b-jets
             ctau_mask = ak.fill_none((charm_cand.vtx_l3d / charm_cand.vtx_el3d) > 10, False)
