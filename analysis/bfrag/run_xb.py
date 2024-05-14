@@ -294,6 +294,9 @@ if __name__ == '__main__':
         exec_instance = processor.FuturesExecutor(workers=nworkers)
         runner = processor.Runner(exec_instance, schema=NanoAODSchema, chunksize=chunksize, maxchunks=nchunks)
         output = runner(flist, treename, processor_instance)
+    elif executor ==  "work_queue":
+        executor = processor.WorkQueueExecutor(**executor_args)
+        runner = processor.Runner(executor, schema=NanoAODSchema, chunksize=chunksize, maxchunks=nchunks, skipbadfiles=False, xrootdtimeout=180)
     elif executor ==  "dask":
         from distributed import Client
         from dask_jobqueue import HTCondorCluster
@@ -352,10 +355,6 @@ if __name__ == '__main__':
                     )
                     save(output, f'/afs/crc.nd.edu/user/b/byates2/topcoffea/analysis/bfrag/histos/coffea_dask.pkl')
 
-    elif executor ==  "work_queue":
-        executor = processor.WorkQueueExecutor(**executor_args)
-        runner = processor.Runner(executor, schema=NanoAODSchema, chunksize=chunksize, maxchunks=nchunks, skipbadfiles=False, xrootdtimeout=180)
-
     output = runner(flist, treename, processor_instance)
     dt = time.time() - tstart
 
@@ -370,7 +369,7 @@ if __name__ == '__main__':
         print("Processing time: %1.2f s with %i workers (%.2f s cpu overall)" % (dt, nworkers, dt*nworkers, ))
 
     # Save the output
-    save(output, f'analysis/bfrag/histos/{outname}.pkl')
+    save(output, f'histos/{outname}.pkl')
     #if not os.path.isdir(outpath): os.system("mkdir -p %s"%outpath)
     #out_pkl_file = os.path.join(outpath,outname+".pkl.gz")
     #print(f"\nSaving output in {out_pkl_file}...")
