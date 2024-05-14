@@ -53,6 +53,5 @@ jobs:
       - name: Run test
         run: |
           wget --no-verbose https://cernbox.cern.ch/s/IgHps6ErdmQC6yH/download -O ttbar.root
-          mkdir coffeafrag/data/bfrag
           pytest tests/test_runner.py
         shell: micromamba-shell {0}
