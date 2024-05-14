@@ -21,6 +21,8 @@ def test_runner():
         "-t",
         "-c",
         "1",
+        "-p",
+        "analysis/bfrag/histos/",
         "-o",
         "output_check_yields"
     ]
