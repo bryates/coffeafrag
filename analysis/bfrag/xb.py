@@ -902,9 +902,10 @@ class AnalysisProcessor(processor.ProcessorABC):
                         #    pass
                         #ch_name = construct_cat_name(lep_chan,njet_str=njet_ch,flav_str=flav_ch)
 
-                        for lep_cut in lep_cat_dict.values():
+                        for lep_name,lep_cut in lep_cat_dict.items():
                             # Get the cuts mask for all selections
                             #all_cuts_mask = cuts_lst#cat_dict[cat_chan]['cuts']
+                            lep_cut = ak.fill_none(lep_cut, False)
                             all_cuts_mask = cuts_lst & lep_cut#cat_dict[cat_chan]['cuts']
 
                             # Apply the optional cut on energy of the event
