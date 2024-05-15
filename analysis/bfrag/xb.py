@@ -1012,6 +1012,8 @@ class AnalysisProcessor(processor.ProcessorABC):
                                         "systematic"    : wgt_fluct, #ak.Array([wgt_fluct] * ak.num(meson_id[all_cuts_mask], axis=0)),
                                         "weight"        : weights_flat,
                                     }
+                                    if dense_axis_name == 'l0pt':
+                                        axes_fill_info_dict['lep_cat'] = lep_name
                                 #if '0pt' in dense_axis_name or dense_axis_name[0] == 'n' or 'j_pt_ch' in dense_axis_name:
                                 #if 'xb_mass' not in dense_axis_name and 'ctau' not in dense_axis_name:
                                 #    axes_fill_info_dict.pop('meson_id')
